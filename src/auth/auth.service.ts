@@ -11,22 +11,15 @@ export class AuthService {
   ) {}
 
   async login(singInDto: LoginDto): Promise<any> {
-    const user = await this.usersService.findOne(singInDto.username);
-    console.log('singInDto', singInDto);
-    console.log('user', user);
+    const user = await this.usersService.findOne(singInDto.username);;
     if (!user || user.password !== singInDto.password) {
       throw new UnauthorizedException('Invalid credentials');
     }
-
     const payload = { sub: user.userId, username: user.username };
-
     return { access_token: this.generateToken(payload) };
-    // return singInDto;
   }
 
   generateToken(payload: { sub: number; username: string }): string {
-    console.log('payload', payload);
-    console.log('process.env', process.env);
     return this.jwtService.sign(payload, {
       secret: process.env.JWT_SECRET,
     });
