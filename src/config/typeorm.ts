@@ -3,17 +3,18 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 
 const config = {
   type: 'postgres',
-  host: `${process.env.DATABASE_HOST}`,
-  port: parseInt(process.env.DATABASE_PORT),
-  username: `${process.env.DATABASE_USERNAME}`,
-  password: `${process.env.DATABASE_PASSWORD}`,
-  database: `${process.env.DATABASE_NAME}`,
-  entities: [__dirname + '../**/*.entity{.ts,.js}'],
-  migrations: [__dirname + '../migrations/*{.ts,.js}'],
+  host: process.env.DATABASE_HOST || 'postgres',
+  port: parseInt(process.env.DATABASE_PORT || '5432'),
+  username: process.env.DATABASE_USERNAME || 'postgres',
+  password: process.env.DATABASE_PASSWORD || 'postgres',
+  database: process.env.DATABASE_NAME || 'products_back_study',
+  entities: [`${__dirname}/../**/*.entity{.ts,.js}`],
+  migrations: [`${__dirname}/../migrations/*{.ts,.js}`],
   logging: process.env.NODE_ENV === 'development',
   migrationsTableName: 'migrations',
   autoLoadEntities: true,
-  synchronize: false,
+  synchronize: process.env.NODE_ENV === 'development',
+  ssl: false,
 };
 
 export default registerAs('typeorm', () => config);
