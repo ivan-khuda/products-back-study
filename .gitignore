@@ -37,3 +37,4 @@ npm-debug.log
 Dist
 pgdata
 .env
+.idea
