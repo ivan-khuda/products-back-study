@@ -5,7 +5,7 @@
 # https://docs.docker.com/go/build-context-dockerignore/
 
 **/.classpath
-# **/.dockerignore
+**/.dockerignore
 # **/.env
 **/.git
 **/.gitignore
@@ -21,6 +21,8 @@
 **/*.jfm
 **/charts
 **/docker-compose*
+**/compose.y*ml
+**/Dockerfile*
 **/node_modules
 **/npm-debug.log
 **/obj
@@ -32,9 +34,8 @@ LICENSE
 README.md
 
 
+Dockerfile
+.dockerignore 
 node_modules 
 npm-debug.log 
 Dist
-pgdata
-.env
-.idea
