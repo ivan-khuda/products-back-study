@@ -55,12 +55,12 @@ services:
     restart: always
     environment:
       - POSTGRES_PASSWORD=postgres
-    container_name: products-back-study-postgres 
+    container_name: products-back-study-postgres
     ## TODO: read about this
     volumes:
       - ./pgdata:/var/lib/postgresql/data 
     ports:
-      - '5432:5432' 
+      - '5433:5432'
   app:
     build: 
       context: . 
@@ -77,7 +77,7 @@ services:
     volumes:
       - ./src:/app/src 
   pgadmin:
-    image: dpage/pgadmin4 
+    image: dpage/pgadmin4
     restart: always 
     container_name: products-back-study-pgadmin4 
     environment:

@@ -4,7 +4,7 @@
 
 `npm run migration:generate <name>`
 Example:
-`npm run migration:generate CreateTestTable`
+`npm run migration:generate CreateTestTable` // npm run migration:generate --name=CreateVariantsTable
 
 ### Create empty migration
 
