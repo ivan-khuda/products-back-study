@@ -14,8 +14,7 @@ export class ProductsService {
 
   async create(createProductDto: CreateProductDto) {
     const product = this.productRepository.create(createProductDto);
-    const savedProduct = await this.productRepository.save(product);
-    return savedProduct;
+    return await this.productRepository.save(product);
   }
 
   async findAll() {
@@ -32,7 +31,7 @@ export class ProductsService {
       throw new HttpException(
         {
           status: HttpStatus.NOT_FOUND,
-          error: 'Product not found',
+          error: 'Product not found' + error,
         },
         HttpStatus.NOT_FOUND,
         {

@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Variant } from 'src/variants/entities/variant.entity';
 
 export enum ProductStatus {
   DRAFT = 'draft',
@@ -44,4 +46,7 @@ export class Product {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Variant, (variant) => variant.product)
+  variants: Variant[];
 }

@@ -6,7 +6,6 @@ export class CreateProductDto {
   title: string;
 
   @IsString()
-  @IsOptional()
   body: string;
 
   @IsString()

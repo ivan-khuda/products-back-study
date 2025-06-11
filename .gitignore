@@ -30,7 +30,8 @@
 **/dist
 LICENSE
 README.md
-
+.DS_Store
+src/.DS_Store
 
 node_modules 
 npm-debug.log 
