@@ -1,5 +1,13 @@
-import { IsEnum, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsEnum,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { ProductStatus } from '../entities/product.entity';
+import { Type } from 'class-transformer';
+import { CreateVariantDto } from '../../variants/dto/create-variant.dto';
 
 export class CreateProductDto {
   @IsString()
@@ -16,4 +24,10 @@ export class CreateProductDto {
   @IsEnum(ProductStatus)
   @IsOptional()
   status: ProductStatus = ProductStatus.DRAFT;
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateVariantDto)
+  variants?: CreateVariantDto[];
 }

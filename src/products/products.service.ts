@@ -4,18 +4,38 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { Repository } from 'typeorm';
+import { Variant } from '../variants/entities/variant.entity';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Product)
-    private productRepository: Repository<Product>,
+    private readonly productRepository: Repository<Product>,
+
+    @InjectRepository(Variant)
+    private readonly variantRepository: Repository<Variant>,
   ) {}
 
   async create(createProductDto: CreateProductDto) {
-    const product = this.productRepository.create(createProductDto);
-    const savedProduct = await this.productRepository.save(product);
-    return savedProduct;
+    const product = await this.productRepository.save(createProductDto);
+    await this.createDefaultVariant(product);
+    return product;
+  }
+
+  async createDefaultVariant(product: Product) {
+    const defaultVariant = this.variantRepository.create({
+      title: 'Default',
+      price: 0,
+      sku: `SKU-${product.id}`,
+      barcode: `BAR-${product.id}`,
+      weight: 0,
+      weightUnit: 'kg',
+      inventory: 0,
+      imageId: 'default-image',
+      product,
+    });
+
+    return this.variantRepository.save(defaultVariant);
   }
 
   async findAll() {
